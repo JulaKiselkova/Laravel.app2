@@ -1,6 +1,8 @@
 <?php
 
+use \App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //$product = Product::find(1);
+    $list = Product::query()
+        //->where('status', true)
+        ->where('price', '>', 4000)
+        ->get();
+    //dd($list);
+
+    $product = new Product();
+    $product->name = 'Phone';
+    $product->price = 4444;
+    $product->save();
+    //dd($product);
+
+    return view('main');
 });
+
+Route::get('/store', function () {
+    return view('store');
+});
+
+Route::get('hello', [SiteController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
