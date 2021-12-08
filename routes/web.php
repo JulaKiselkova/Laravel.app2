@@ -40,10 +40,12 @@ Route::get('/store', function () {
 Route::get('/product', function () {
     $category = new Category();
     $category->name = 'TV2';
+    $category->status = true;
     $category->save();
 
     $data = [
-        'name' => 'Laptop2'
+        'name' => 'Laptop2',
+        'status' => false
     ];
     $category = Category::create($data);
     return view('product');
