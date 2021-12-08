@@ -3,6 +3,7 @@
 use \App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,13 @@ Route::get('/', function () {
 
 Route::get('/store', function () {
     return view('store');
+});
+
+Route::get('/product', function () {
+    $category = new Category();
+    $category->name = 'TV';
+    $category->save();
+    return view('product');
 });
 
 Route::get('hello', [SiteController::class, 'index']);
