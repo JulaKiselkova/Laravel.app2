@@ -39,8 +39,13 @@ Route::get('/store', function () {
 
 Route::get('/product', function () {
     $category = new Category();
-    $category->name = 'TV';
+    $category->name = 'TV2';
     $category->save();
+
+    $data = [
+        'name' => 'Laptop2'
+    ];
+    $category = Category::create($data);
     return view('product');
 });
 
