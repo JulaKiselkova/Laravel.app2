@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\ProductController;
 use \App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +38,28 @@ Route::get('/', function () {
 Route::get('/store', function () {
     return view('store');
 });
+
+Route::get('show-form', [FormController::class, 'showForm'])
+    ->name('showForm');
+Route::post('show-form', [FormController::class, 'postForm'])
+    ->name('namePostForm');
+
+Route::get('product/{id}',[ProductController::class, 'index'])->name('showProduct');
+Route::get('catalog',[ProductController::class, 'catalog'])->name('catalog');
+
+//Route::get('/product', function () {
+//    $category = new Category();
+//    $category->name = 'TV2';
+//    $category->status = true;
+//    $category->save();
+//
+//    $data = [
+//        'name' => 'Laptop2',
+//        'status' => false
+//    ];
+//    $category = Category::create($data);
+//    return view('product.product');
+//});
 
 Route::get('hello', [SiteController::class, 'index']);
 
