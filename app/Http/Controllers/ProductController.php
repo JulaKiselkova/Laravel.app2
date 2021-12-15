@@ -22,7 +22,7 @@ class ProductController extends Controller
         $offset = 0;
         $categories = Category::all();
         $brands = Brand::where('status',1)->paginate(9);
-        $products = Product::where('status',1)->paginate(9);
+        $products = Product::where('status',1)->simplePaginate(9);
         return view('product.store', [
             'products' => $products,
             'categories' => $categories,

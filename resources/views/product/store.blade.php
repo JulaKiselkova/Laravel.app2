@@ -198,8 +198,9 @@
 
                 <!-- store bottom filter -->
                 <div class="store-filter clearfix">
-                    {!! $products->links('vendor.pagination.my') !!}
-                    <span class="store-qty">Showing {{$products->currentPage()*$products->perPage()}}-{{$products->total()}}</span>
+{{--                    {!! $products->links('vendor.pagination.my') !!}--}}
+                    <span class="store-qty">Showing {{$products->currentPage()}}</span>
+                    {!! $products->render() !!}
                     <ul class="store-pagination">
                         <li class="active">1</li>
                         <li><a href="#">2</a></li>
