@@ -35,8 +35,8 @@
                     <div class="checkbox-filter">
                         @foreach($categories as $cat)
                         <div class="input-checkbox">
-                            <input type="checkbox" id="category-1">
-                            <label for="category-1">
+                            <input type="checkbox" id="{{$cat->name}}">
+                            <label for="{{$cat->name}}">
                                 <span></span>
                                 {{$cat->name}}
                                 <small>(120)</small>

@@ -20,8 +20,8 @@ class ProductController extends Controller
 
     public function catalog() {
         $offset = 0;
-        $categories = Category::all();
-        $brands = Brand::where('status',1)->paginate(9);
+        $categories = Category::limit(9)->get();
+        $brands = Brand::where('status',1)->limit(9)->get();
         $products = Product::where('status',1)->simplePaginate(9);
         return view('product.store', [
             'products' => $products,
