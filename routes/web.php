@@ -47,19 +47,28 @@ Route::post('show-form', [FormController::class, 'postForm'])
 Route::get('product/{id}',[ProductController::class, 'index'])->name('showProduct');
 Route::get('catalog',[ProductController::class, 'catalog'])->name('catalog');
 
-//Route::get('/product', function () {
-//    $category = new Category();
-//    $category->name = 'TV2';
-//    $category->status = true;
-//    $category->save();
-//
-//    $data = [
-//        'name' => 'Laptop2',
-//        'status' => false
-//    ];
-//    $category = Category::create($data);
-//    return view('product.product');
-//});
+Route::get('admin', function (){
+    return view('admin.index');
+});
+
+//Route::resources([
+//    'brand'=> \App\Http\Controllers\Admin\BrandController::class,
+//    'category'=> \App\Http\Controllers\Admin\CategoryController::class,
+//    'product'=> \App\Http\Controllers\Admin\ProductController::class
+//]);
+
+Route::prefix('admin')->name('admin.')->group(function (){
+    Route::resources([
+        'brand'=> \App\Http\Controllers\Admin\BrandController::class,
+        'category'=> \App\Http\Controllers\Admin\CategoryController::class,
+        'product'=> \App\Http\Controllers\Admin\ProductController::class
+    ]);
+});
+
+//Route::resource('brand', \App\Http\Controllers\Admin\BrandController::class)->except(['destroy']);
+//Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class);
+//Route::resource('product', \App\Http\Controllers\Admin\ProductController::class);
+
 
 Route::get('hello', [SiteController::class, 'index']);
 
