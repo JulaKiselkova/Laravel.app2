@@ -51,11 +51,6 @@ Route::get('admin', function (){
     return view('admin.index');
 });
 
-//Route::resources([
-//    'brand'=> \App\Http\Controllers\Admin\BrandController::class,
-//    'category'=> \App\Http\Controllers\Admin\CategoryController::class,
-//    'product'=> \App\Http\Controllers\Admin\ProductController::class
-//]);
 
 Route::prefix('admin')->name('admin.')->group(function (){
     Route::resources([
