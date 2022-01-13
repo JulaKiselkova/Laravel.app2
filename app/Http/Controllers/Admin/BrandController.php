@@ -38,8 +38,11 @@ class BrandController extends Controller
      */
     public function store(CreateBrandRequest $request)
     {
-        $brand = Brand::create($request->all());
-        //dd($brand);
+        $file = $request->file('logo');
+        dump($file->storeAs('newfolder', 'name.jpg', 'public'));
+        dd(\Storage::disk('public')->putFileAs('ololo', $file, '656.jpg'));
+        //dd($file->getContent());
+        //$brand = Brand::create($request->all());
         return  redirect(route('admin.brand.index'));
     }
 
