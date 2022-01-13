@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
-    protected $fillable = ['name', 'price', 'img', 'status', 'content'];
+    protected $fillable = ['name', 'price', 'img', 'status', 'content', 'brand_id'];
+    public function brand() {
+        return $this->belongsTo(Brand::class, 'brand_product')->withDefault();
+    }
     use HasFactory;
 }
