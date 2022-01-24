@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::paginate();
+        return view('admin.product.index', ['products' => $products]);
     }
 
     /**
@@ -24,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -35,7 +38,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('img');
+        $name = $request->input('name');
+        $file->storeAs('newfolder', "{$name}.jpg", 'public');
+        $img = "{$name}.jpg";
+       //dd(\Storage::url->putFileAs('ololo', $file, '656.jpg'));
+//        dd($file->getContent());
+//        //$brand = Brand::create($request->all());
+//        return  redirect(route('admin.product.index'));
+        //$fileUrl = Storage::url('product/images/'.$request->name.'.'.$img->getClientOriginalExtension());
+        Product::create($request->all());
+        dump($request->all(), realpath($file), $name);
+        //return  redirect(route('admin.product.index'));
     }
 
     /**
@@ -44,9 +58,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('admin.product.show', ['product' => $product]);
     }
 
     /**
@@ -55,9 +69,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
@@ -67,9 +81,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->fill($request->all());
+        $product->save();
+        return  redirect(route('admin.product.index'));
     }
 
     /**
@@ -78,8 +94,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return  redirect(route('admin.product.index'));
     }
 }
