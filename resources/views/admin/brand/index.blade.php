@@ -23,7 +23,7 @@
                         <td>{{$loop->iteration + (($brands->currentPage()-1)*$brands ->perPage())}}</td>
                         <td>{{$brand->id}}</td>
                         <td>{{$brand->name}}</td>
-                        <td>{{Storage::disk('public')->url($brand->logo)}}</td>
+                        <td>{{Storage::disk('public')->url($brand)}}</td>
                         <td></td>
                         <td>
                             <a href="{{route('admin.brand.show', ['brand' => $brand->id]) }}">Show</a>
