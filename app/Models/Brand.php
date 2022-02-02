@@ -13,4 +13,8 @@ class Brand extends Model
     public function product() {
         return $this->belongsTo(Product::class, 'brand_product');
     }
+
+    public function getNameAttribute() {
+        $this->attributes;
+    }
 }
