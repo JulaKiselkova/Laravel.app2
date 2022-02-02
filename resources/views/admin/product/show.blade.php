@@ -7,7 +7,7 @@
         <img src="{{asset($product->img)}}" alt="">
         } @else
         <p>Картинка загружена</p>
-        <img src="public/storage/newfolder/pic.jpg" alt="{{$product->name.'.jpg'}}">
+        <img src="{{$product->img}}" alt="{{$product->name.'.jpg'}}">
         @endif
         <div> Product id:
           <div>{{$product->id}}</div>

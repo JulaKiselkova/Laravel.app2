@@ -28,7 +28,7 @@
                             @if(str_starts_with($product->img, 'https'))
                                 <td><img src="{{asset($product->img)}}" alt=""></td>
                             @else
-                            <td><img src="public/storage/newfolder/{{$product->name}}.jpg" alt="{{$product->name.'.jpg'}}"></td>
+                            <td><img src="{{$product->img}}" alt="{{$product->name.'.jpg'}}"></td>
                             @endif
                             <td>{{$product->content}}</td>
                             <td>{{$product->price}}</td>

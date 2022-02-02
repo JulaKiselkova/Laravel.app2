@@ -40,16 +40,13 @@ class ProductController extends Controller
     {
         $file = $request->file('img');
         $name = $request->input('name');
+        $data = $request->all();
         $file->storeAs('newfolder', "{$name}.jpg", 'public');
-        $img = "{$name}.jpg";
-       //dd(\Storage::url->putFileAs('ololo', $file, '656.jpg'));
-//        dd($file->getContent());
-//        //$brand = Brand::create($request->all());
-//        return  redirect(route('admin.product.index'));
-        //$fileUrl = Storage::url('product/images/'.$request->name.'.'.$img->getClientOriginalExtension());
-        Product::create($request->all());
+        $img = '/storage/newfolder/'.$name.'jpg';
+        $data['img'] = $img;
+        Product::create($data);
         dump($request->all(), realpath($file), $name);
-        //return  redirect(route('admin.product.index'));
+        return  redirect(route('admin.product.index'));
     }
 
     /**
