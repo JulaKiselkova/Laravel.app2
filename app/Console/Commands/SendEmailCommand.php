@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\BingoMail;
+use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmailCommand extends Command
 {
@@ -11,7 +14,8 @@ class SendEmailCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:test {name?*} {--queue=default//}';
+    //protected $signature = 'command:test {name} {--queue=default//}';
+    protected $signature = 'command:email {userId} {text}';
 
     /**
      * The console command description.
@@ -37,14 +41,22 @@ class SendEmailCommand extends Command
      */
     public function handle()
     {
-        $this->argument('name');
+        //$this->argument('name');
         //$this->info($this->argument('name') ?? 'no arg');
 
 //        $ans = $this->ask('What?');
 //        $this->info($ans);
 
-        $ans = $this->secret('What?');
-        $this->info($ans);
+        //$ans = $this->secret('What?');
+        //$this->info($ans);
+
+        $userId = $this->argument('userId');
+        $text = $this->argument('text');
+        $user = User::find($userId);
+
+        $this->info($user->email);
+        Mail::to($user->email)
+            ->send(new BingoMail($user->name, $text));
 
         return Command::SUCCESS;
     }

@@ -6,21 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use function Symfony\Component\Translation\t;
 
 class BingoMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $balance;
-    public $test;
+
+    public $text;
+    public $name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($balance)
+
+    public function __construct($name, $text)
     {
-        $this->balance = $balance;
-        $this->test = "hellooo";
+        $this->name = $name;
+        $this->text = $text;
     }
 
     /**
@@ -32,7 +35,10 @@ class BingoMail extends Mailable
     {
         return $this->from('test@mail.com', 'Yulia')
             ->view('mails.bingo')
-            ->with(['message2' => 'Mess text'])
+            ->with([
+                'name' => $this->name,
+                'text' => $this->text,
+                ])
             ->attach('https://static.wikia.nocookie.net/gravityfalls/images/4/47/S1e20_Waddles_brought_up.png/revision/latest?cb=20171029131123');
     }
 }
